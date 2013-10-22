@@ -83,6 +83,7 @@ public class UsersActivity extends Activity
 			User user = this.users.get(position);
 			
 			//TODO: Use async loading
+			//TODO: Cache images
 			try {
 				URL newurl = new URL(user.getProfileImage());
 				Bitmap img = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
