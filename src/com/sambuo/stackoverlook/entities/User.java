@@ -1,5 +1,9 @@
 package com.sambuo.stackoverlook.entities;
 
+import org.json.JSONObject;
+
+import com.sambuo.stackoverlook.utilities.Utils;
+
 public class User {
 	private String userId;
 	private String displayName;
@@ -38,7 +42,17 @@ public class User {
 		this.aboutMe = aboutMe;
 	}
 	
-	public static User fromJSON(String userJson) {
-		return null;
+	public static User fromJSONObject(JSONObject userJson) {
+		String userId = Utils.getJsonStringSafe(userJson, "user_id");
+		String displayName = Utils.getJsonStringSafe(userJson, "display_name");
+		String profileImage = Utils.getJsonStringSafe(userJson, "profile_image");
+		String aboutMe = Utils.getJsonStringSafe(userJson, "about_me");
+		
+		User u = new User();
+		u.setUserId(userId);
+		u.setDisplayName(displayName);
+		u.setAboutMe(aboutMe);
+		u.setProfileImage(profileImage);
+		return u;
 	}
 }
