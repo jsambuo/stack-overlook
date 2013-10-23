@@ -11,7 +11,7 @@ public class Question {
 	private String title;
 	
 	public long getQuestionId() {
-		return questionId;
+		return this.questionId;
 	}
 
 	public void setQuestionId(long questionId) {
@@ -19,7 +19,7 @@ public class Question {
 	}
 
 	public int getScore() {
-		return score;
+		return this.score;
 	}
 
 	public void setScore(int score) {
@@ -27,7 +27,7 @@ public class Question {
 	}
 
 	public String getBody() {
-		return body;
+		return this.body;
 	}
 
 	public void setBody(String body) {
@@ -35,7 +35,7 @@ public class Question {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {

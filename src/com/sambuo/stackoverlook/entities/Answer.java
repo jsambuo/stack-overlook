@@ -16,7 +16,7 @@ public class Answer {
 	private String title;
 	
 	public long getQuestionId() {
-		return questionId;
+		return this.questionId;
 	}
 
 	public void setQuestionId(long questionId) {
@@ -24,7 +24,7 @@ public class Answer {
 	}
 
 	public long getAnswerId() {
-		return answerId;
+		return this.answerId;
 	}
 
 	public void setAnswerId(long answerId) {
@@ -32,7 +32,7 @@ public class Answer {
 	}
 
 	public Date getCreationDate() {
-		return creationDate;
+		return this.creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
@@ -40,7 +40,7 @@ public class Answer {
 	}
 
 	public int getScore() {
-		return score;
+		return this.score;
 	}
 
 	public void setScore(int score) {
@@ -48,7 +48,7 @@ public class Answer {
 	}
 
 	public boolean isAccepted() {
-		return isAccepted;
+		return this.isAccepted;
 	}
 
 	public void setAccepted(boolean isAccepted) {

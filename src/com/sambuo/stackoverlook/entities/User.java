@@ -11,7 +11,7 @@ public class User {
 	private String aboutMe;
 	
 	public long getUserId() {
-		return userId;
+		return this.userId;
 	}
 
 	public void setUserId(long userId) {
