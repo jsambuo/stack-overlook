@@ -56,7 +56,7 @@ public class StackOverflowRepository {
 	}
 	
 	public Iterable<Answer> getLatestAnswersFromUserId(long userId) {
-		String url = "https://api.stackexchange.com/2.1/users/" + userId + "/answers?pagesize=50&order=desc&sort=creation&site=stackoverflow&filter=!23w)xwziDH(hv_DbLH_Wq";
+		String url = "https://api.stackexchange.com/2.1/users/" + userId + "/answers?pagesize=50&order=desc&sort=creation&site=stackoverflow&filter=!)S00ZqWt(fvhAhy5Tf1InB)F";
 		String jsonString = Utils.getJSONfromStackOverflowURL(url);
 		
 		//loop through items to get answers

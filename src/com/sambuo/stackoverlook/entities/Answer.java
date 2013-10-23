@@ -12,6 +12,7 @@ public class Answer {
 	private Date creationDate;
 	private int score;
 	private boolean isAccepted;
+	private String body;
 	private String title;
 	
 	public long getQuestionId() {
@@ -53,6 +54,14 @@ public class Answer {
 	public void setAccepted(boolean isAccepted) {
 		this.isAccepted = isAccepted;
 	}
+	
+	public String getBody() {
+		return this.body;
+	}
+	
+	public void setBody(String body) {
+		this.body = body;
+	}
 
 	public String getTitle() {
 		return title;
@@ -68,6 +77,7 @@ public class Answer {
 		Date creationDate = null; //Date date = new Date(Long.parseLong(jsonDate.replaceAll(".*?(\\d+).*", "$1")));
 		int score = Utils.getJsonIntSafe(answerJson, "score", 0);
 		boolean isAccepted = Utils.getJsonBooleanSafe(answerJson, "is_accepted", false);
+		String body = Utils.getJsonStringSafe(answerJson, "body");
 		String title = Utils.getJsonStringSafe(answerJson, "title");
 		
 		Answer a = new Answer();
@@ -76,6 +86,7 @@ public class Answer {
 		a.setCreationDate(creationDate);
 		a.setScore(score);
 		a.setAccepted(isAccepted);
+		a.setBody(body);
 		a.setTitle(title);
 		return a;
 	}
