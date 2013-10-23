@@ -159,4 +159,16 @@ public class Utils {
 		
 		return s;
 	}
+	
+	public static long getJsonLongSafe(JSONObject object, String name) {
+		long l = 0;
+		
+		try {
+			l = object.getLong(name);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return l;
+	}
 }

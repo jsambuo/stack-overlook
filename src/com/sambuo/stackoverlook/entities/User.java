@@ -5,16 +5,16 @@ import org.json.JSONObject;
 import com.sambuo.stackoverlook.utilities.Utils;
 
 public class User {
-	private String userId;
+	private long userId;
 	private String displayName;
 	private String profileImage;
 	private String aboutMe;
 	
-	public String getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	
@@ -43,7 +43,7 @@ public class User {
 	}
 	
 	public static User fromJSONObject(JSONObject userJson) {
-		String userId = Utils.getJsonStringSafe(userJson, "user_id");
+		long userId = Utils.getJsonLongSafe(userJson, "user_id");
 		String displayName = Utils.getJsonStringSafe(userJson, "display_name");
 		String profileImage = Utils.getJsonStringSafe(userJson, "profile_image");
 		String aboutMe = Utils.getJsonStringSafe(userJson, "about_me");

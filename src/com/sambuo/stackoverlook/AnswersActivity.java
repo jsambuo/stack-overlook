@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,11 @@ public class AnswersActivity extends Activity {
 		setContentView(R.layout.answers);
 		
 		Intent intent = getIntent();
-		String selectedUserId = intent.getStringExtra(UsersActivity.EXTRA_USER_ID);
+		if(!intent.hasExtra(UsersActivity.EXTRA_USER_ID)) {
+			Log.e(AnswersActivity.class.toString(), "UserId was not given to AnswersActivity");
+		}
+		
+		long selectedUserId = intent.getLongExtra(UsersActivity.EXTRA_USER_ID, 0);
 		
 		String[] answers = { "Answer1", "Answer2", "Answer3" };
 		

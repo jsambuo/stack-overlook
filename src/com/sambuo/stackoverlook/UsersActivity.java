@@ -52,7 +52,7 @@ public class UsersActivity extends Activity
           @Override
           public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
         	  Intent showAnswersIntent = new Intent(view.getContext(), AnswersActivity.class);
-        	  showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, "selectedUserId");
+        	  showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, id);
         	  UsersActivity.this.startActivity(showAnswersIntent);
           }
 
@@ -60,8 +60,8 @@ public class UsersActivity extends Activity
     }
     
 	private class UserArrayAdapter extends BaseAdapter {
-		List<User> users;
-		Context context;
+		private List<User> users;
+		private Context context;
 
 		public UserArrayAdapter(Context context, List<User> users) {
         	this.users = users;
@@ -114,7 +114,7 @@ public class UsersActivity extends Activity
 
 		@Override
 		public long getItemId(int i) {
-			return i;
+			return this.users.get(i).getUserId();
 		}
 
 	}
