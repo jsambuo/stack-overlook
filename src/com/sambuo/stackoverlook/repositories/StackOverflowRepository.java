@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.sambuo.stackoverlook.entities.Answer;
 import com.sambuo.stackoverlook.entities.Question;
 import com.sambuo.stackoverlook.entities.User;
@@ -57,7 +59,7 @@ public class StackOverflowRepository {
 		String url = "https://api.stackexchange.com/2.1/users/" + userId + "/answers?pagesize=50&order=desc&sort=creation&site=stackoverflow&filter=!23w)xwziDH(hv_DbLH_Wq";
 		String jsonString = Utils.getJSONfromStackOverflowURL(url);
 		
-		//loop through items to get users
+		//loop through items to get answers
 		List<Answer> answers = new ArrayList<Answer>();
 		
 		try {
@@ -75,8 +77,27 @@ public class StackOverflowRepository {
 		return answers;
 	}
 	
-	public Question getQuestionFromQuestionId(String questionId) {
-		return Question.fromJSON(null);
+	public Question getQuestionFromQuestionId(long questionId) {
+		String url = "https://api.stackexchange.com/2.1/questions/" + questionId + "?order=desc&sort=activity&site=stackoverflow&filter=!BGS0Gt_sf1-NOm2fAHDd7lr02bLDNg";
+		String jsonString = Utils.getJSONfromStackOverflowURL(url);
+		
+		Question question = null;
+		try {
+			JSONObject json = new JSONObject(jsonString);
+			JSONArray itemsArray = json.getJSONArray("items");
+			int itemsArrayLength = itemsArray.length(); 
+			if (itemsArrayLength != 1) {
+				Log.e(StackOverflowRepository.class.toString(), String.format("Incorrect number of questions found. Expecting: 1, Actual: %d", itemsArrayLength));
+			}
+			for (int i = 0; i < itemsArray.length(); i++) {
+				JSONObject questionJson = itemsArray.getJSONObject(i); 
+				question = Question.fromJSONObject(questionJson);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return question;
 	}
 	
 	private Iterable<User> getUsersFromIds(Iterable<String> userIds) {

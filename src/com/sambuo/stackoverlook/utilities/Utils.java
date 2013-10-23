@@ -171,4 +171,16 @@ public class Utils {
 		
 		return l;
 	}
+	
+	public static int getJsonIntSafe(JSONObject object, String name) {
+		int i = 0;
+		
+		try {
+			i = object.getInt(name);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return i;
+	}
 }

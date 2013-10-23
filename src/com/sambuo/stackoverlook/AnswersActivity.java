@@ -44,12 +44,9 @@ public class AnswersActivity extends Activity {
 
 	          @Override
 	          public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-	        	  
 	        	  Intent showAnswersIntent = new Intent(view.getContext(), QuestionActivity.class);
-	        	  showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, "questionId");
+	        	  showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, id);
 	        	  startActivity(showAnswersIntent);
-	        	  //TextView clickedView = (TextView) view.findViewById(R.id.title);
-	              //Toast.makeText(AnswersActivity.this, "Item with id ["+id+"] - Position ["+position+"] - Planet ["+clickedView.getText()+"]", Toast.LENGTH_SHORT).show();
 	          }
 
 	        });
