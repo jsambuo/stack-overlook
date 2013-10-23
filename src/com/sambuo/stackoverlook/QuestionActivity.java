@@ -29,9 +29,13 @@ public class QuestionActivity extends Activity {
 		android.util.Log.v("test", String.format("%d", questionId));
 		
 		TextView title = (TextView) findViewById(R.id.title);
-		TextView body = (TextView) findViewById(R.id.body);
+		TextView questionBody = (TextView) findViewById(R.id.questionBody);
+		TextView score = (TextView) findViewById(R.id.score);
+		TextView answerBody = (TextView) findViewById(R.id.answerBody);
 		
-		title.setText(question.getTitle());
-		body.setText(Html.fromHtml(question.getBody()));
+		title.setText(Html.fromHtml(question.getTitle()));
+		questionBody.setText(Html.fromHtml(question.getBody()));
+		score.setText(String.format("%d", question.getScore()));
+		answerBody.setText("Answer");
 	}
 }

@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,7 @@ public class AnswersActivity extends Activity {
 			
 			Answer answer = this.answers.get(position);
 			
-			title.setText(answer.getTitle());
+			title.setText(Html.fromHtml(answer.getTitle()));
 			score.setText(String.format("%d", answer.getScore()));
 			if (answer.isAccepted()) {
 				score.setBackgroundResource(android.R.color.holo_green_dark);
