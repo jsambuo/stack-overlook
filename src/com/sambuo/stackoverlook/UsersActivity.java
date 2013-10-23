@@ -76,6 +76,7 @@ public class UsersActivity extends Activity
 				row = inflater.inflate(R.layout.user_row, parent, false);
 			}
 			
+			//TODO: Use ViewHolder pattern
 			ImageView gravatar = (ImageView) row.findViewById(R.id.gravatar);
 			TextView name = (TextView) row.findViewById(R.id.name);
 			TextView desc = (TextView) row.findViewById(R.id.desc);
