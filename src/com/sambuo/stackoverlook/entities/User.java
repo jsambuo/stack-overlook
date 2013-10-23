@@ -43,7 +43,7 @@ public class User {
 	}
 	
 	public static User fromJSONObject(JSONObject userJson) {
-		long userId = Utils.getJsonLongSafe(userJson, "user_id");
+		long userId = Utils.getJsonLongSafe(userJson, "user_id", 0);
 		String displayName = Utils.getJsonStringSafe(userJson, "display_name");
 		String profileImage = Utils.getJsonStringSafe(userJson, "profile_image");
 		String aboutMe = Utils.getJsonStringSafe(userJson, "about_me");

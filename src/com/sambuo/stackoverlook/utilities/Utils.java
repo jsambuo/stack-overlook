@@ -160,8 +160,8 @@ public class Utils {
 		return s;
 	}
 	
-	public static long getJsonLongSafe(JSONObject object, String name) {
-		long l = 0;
+	public static long getJsonLongSafe(JSONObject object, String name, long seed) {
+		long l = seed;
 		
 		try {
 			l = object.getLong(name);
@@ -172,8 +172,8 @@ public class Utils {
 		return l;
 	}
 	
-	public static int getJsonIntSafe(JSONObject object, String name) {
-		int i = 0;
+	public static int getJsonIntSafe(JSONObject object, String name, int seed) {
+		int i = seed;
 		
 		try {
 			i = object.getInt(name);
@@ -182,5 +182,17 @@ public class Utils {
 		}
 		
 		return i;
+	}
+	
+	public static boolean getJsonBooleanSafe(JSONObject object, String name, boolean seed) {
+		boolean b = seed;
+		
+		try {
+			b = object.getBoolean(name);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return b;
 	}
 }

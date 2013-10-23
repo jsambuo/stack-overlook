@@ -43,8 +43,8 @@ public class Question {
 	}
 	
 	public static Question fromJSONObject(JSONObject questionJson) {
-		long questionId = Utils.getJsonLongSafe(questionJson, "question_id");
-		int score = Utils.getJsonIntSafe(questionJson, "score");
+		long questionId = Utils.getJsonLongSafe(questionJson, "question_id", 0);
+		int score = Utils.getJsonIntSafe(questionJson, "score", 0);
 		String body = Utils.getJsonStringSafe(questionJson, "body");
 		String title = Utils.getJsonStringSafe(questionJson, "title");
 		

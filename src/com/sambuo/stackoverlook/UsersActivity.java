@@ -49,31 +49,28 @@ public class UsersActivity extends Activity
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-          @Override
-          public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-        	  Intent showAnswersIntent = new Intent(view.getContext(), AnswersActivity.class);
-        	  showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, id);
-        	  UsersActivity.this.startActivity(showAnswersIntent);
-          }
-
+        	@Override
+        	public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+        		Intent showAnswersIntent = new Intent(view.getContext(), AnswersActivity.class);
+        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, id);
+        		UsersActivity.this.startActivity(showAnswersIntent);
+        	}
         });
     }
     
 	private class UserArrayAdapter extends BaseAdapter {
 		private List<User> users;
-		private Context context;
+		private LayoutInflater inflater;
 
 		public UserArrayAdapter(Context context, List<User> users) {
+        	this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         	this.users = users;
-        	this.context = context;
 		}
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row = convertView;
-			if (row == null) {
-				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			if (row == null) {	
 				row = inflater.inflate(R.layout.user_row, parent, false);
 			}
 			
@@ -88,7 +85,7 @@ public class UsersActivity extends Activity
 			//TODO: Cache images
 			try {
 				URL newurl = new URL(user.getProfileImage());
-				Bitmap img = BitmapFactory.decodeStream(newurl.openConnection() .getInputStream());
+				Bitmap img = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
 				gravatar.setImageBitmap(img);
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block

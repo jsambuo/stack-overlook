@@ -63,13 +63,11 @@ public class Answer {
 	}
 	
 	public static Answer fromJSONObject(JSONObject answerJson) {
-		//Date date = new Date(Long.parseLong(jsonDate.replaceAll(".*?(\\d+).*", "$1")));
-		
-		long questionId = Utils.getJsonLongSafe(answerJson, "question_id");
-		long answerId = Utils.getJsonLongSafe(answerJson, "answer_id");
-		Date creationDate = null;
-		int score = 0;
-		boolean isAccepted = false;
+		long questionId = Utils.getJsonLongSafe(answerJson, "question_id", 0);
+		long answerId = Utils.getJsonLongSafe(answerJson, "answer_id", 0);
+		Date creationDate = null; //Date date = new Date(Long.parseLong(jsonDate.replaceAll(".*?(\\d+).*", "$1")));
+		int score = Utils.getJsonIntSafe(answerJson, "score", 0);
+		boolean isAccepted = Utils.getJsonBooleanSafe(answerJson, "is_accepted", false);
 		String title = Utils.getJsonStringSafe(answerJson, "title");
 		
 		Answer a = new Answer();
