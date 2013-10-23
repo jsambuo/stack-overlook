@@ -41,23 +41,21 @@ public class AnswersActivity extends Activity {
 		final ListView listView = (ListView) findViewById(R.id.answersListView);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-	          @Override
-	          public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-	        	  Intent showAnswersIntent = new Intent(view.getContext(), QuestionActivity.class);
-	        	  showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, id);
-	        	  startActivity(showAnswersIntent);
-	          }
-
-	        });
+			@Override
+			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+				Intent showAnswersIntent = new Intent(view.getContext(), QuestionActivity.class);
+				showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, id);
+				startActivity(showAnswersIntent);
+			}
+		});
 	}
 	
 	private class AnswerArrayAdapter extends BaseAdapter {
 		private List<Answer> answers;
-		private Context context;
+		private LayoutInflater inflater;
 
 		public AnswerArrayAdapter(Context context, List<Answer> answers) {
-        	this.context = context;
+			this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         	this.answers = answers;
 		}
 		
@@ -65,16 +63,20 @@ public class AnswersActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View row = convertView;
 			if (row == null) {
-				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				row = inflater.inflate(R.layout.answer_row, parent, false);
 			}
 			
 			//TODO: Use ViewHolder pattern
 			TextView title = (TextView) row.findViewById(R.id.title);
+			TextView score = (TextView) row.findViewById(R.id.score);
 			
 			Answer answer = this.answers.get(position);
 			
 			title.setText(answer.getTitle());
+			score.setText(String.format("%d", answer.getScore()));
+			if (answer.isAccepted()) {
+				score.setBackgroundResource(android.R.color.holo_green_dark);
+			}
 			
 			return row;
 		}
