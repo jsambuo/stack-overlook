@@ -23,6 +23,8 @@ import android.widget.TextView;
 public class AnswersActivity extends Activity {
 	
 	public final static String EXTRA_QUESTION_ID = "com.sambuo.stackoverlook.QUESTION_ID";
+	public final static String EXTRA_ANSWER_BODY = "com.sambuo.stackoverlook.ANSWER_BODY";
+	public final static String EXTRA_ANSWER_SCORE = "com.sambuo.stackoverlook.ANSWER_SCORE";
 	private final StackOverflowRepository repository = StackOverflowRepository.getInstance();
 	
 	@Override
@@ -46,6 +48,8 @@ public class AnswersActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 				Intent showAnswersIntent = new Intent(view.getContext(), QuestionActivity.class);
 				showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, id);
+				showAnswersIntent.putExtra(AnswersActivity.EXTRA_ANSWER_BODY, "This is the body for the answer");
+				showAnswersIntent.putExtra(AnswersActivity.EXTRA_ANSWER_SCORE, 4);
 				startActivity(showAnswersIntent);
 			}
 		});

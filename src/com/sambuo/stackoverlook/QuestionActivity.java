@@ -25,17 +25,20 @@ public class QuestionActivity extends Activity {
 		}
 		
 		long questionId = intent.getLongExtra(AnswersActivity.EXTRA_QUESTION_ID, 0);
+		String answerBodyString = intent.getStringExtra(AnswersActivity.EXTRA_ANSWER_BODY);
+		int answerScoreInt = intent.getIntExtra(AnswersActivity.EXTRA_ANSWER_SCORE, 0);
 		Question question = this.repository.getQuestionFromQuestionId(questionId);
-		android.util.Log.v("test", String.format("%d", questionId));
 		
 		TextView title = (TextView) findViewById(R.id.title);
 		TextView questionBody = (TextView) findViewById(R.id.questionBody);
 		TextView score = (TextView) findViewById(R.id.score);
+		TextView answerScore = (TextView) findViewById(R.id.answerScore);
 		TextView answerBody = (TextView) findViewById(R.id.answerBody);
 		
 		title.setText(Html.fromHtml(question.getTitle()));
 		questionBody.setText(Html.fromHtml(question.getBody()));
 		score.setText(String.format("%d", question.getScore()));
-		answerBody.setText("Answer");
+		answerBody.setText(answerBodyString);
+		answerScore.setText(String.format("%d", answerScoreInt));
 	}
 }
