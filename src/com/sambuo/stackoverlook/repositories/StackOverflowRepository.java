@@ -46,16 +46,33 @@ public class StackOverflowRepository {
 	 * @return
 	 */
 	public Iterable<User> getAppSpecificUsers() {
-		if (this.appSpecificUsersCache == null)
-		{
+		if (this.appSpecificUsersCache == null) {
 			String[] userIds = { "298575", "236398", "822", "115145", "246461", "244296", "501696", "1174526", "2820983" };
 			this.appSpecificUsersCache = this.getUsersFromIds(Arrays.asList(userIds));
 		}
 		return this.appSpecificUsersCache;
 	}
 	
-	public Iterable<Answer> getLatestAnswersFromUserId(String userId) {
-		return null;
+	public Iterable<Answer> getLatestAnswersFromUserId(long userId) {
+		String url = "https://api.stackexchange.com/2.1/users/" + userId + "/answers?pagesize=50&order=desc&sort=creation&site=stackoverflow&filter=!23w)xwziDH(hv_DbLH_Wq";
+		String jsonString = Utils.getJSONfromStackOverflowURL(url);
+		
+		//loop through items to get users
+		List<Answer> answers = new ArrayList<Answer>();
+		
+		try {
+			JSONObject json = new JSONObject(jsonString);
+			JSONArray itemsArray = json.getJSONArray("items");
+			for (int i = 0; i < itemsArray.length(); i++) {
+				JSONObject answerJson = itemsArray.getJSONObject(i); 
+				Answer a = Answer.fromJSONObject(answerJson);
+				answers.add(a);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return answers;
 	}
 	
 	public Question getQuestionFromQuestionId(String questionId) {

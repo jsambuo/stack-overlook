@@ -1,5 +1,11 @@
 package com.sambuo.stackoverlook;
 
+import java.util.List;
+
+import com.sambuo.stackoverlook.entities.Answer;
+import com.sambuo.stackoverlook.repositories.StackOverflowRepository;
+import com.sambuo.stackoverlook.utilities.Utils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,13 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class AnswersActivity extends Activity {
 	
 	public final static String EXTRA_QUESTION_ID = "com.sambuo.stackoverlook.QUESTION_ID";
+	private final StackOverflowRepository repository = StackOverflowRepository.getInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +35,9 @@ public class AnswersActivity extends Activity {
 		}
 		
 		long selectedUserId = intent.getLongExtra(UsersActivity.EXTRA_USER_ID, 0);
+		Iterable<Answer> answers = this.repository.getLatestAnswersFromUserId(selectedUserId);
 		
-		String[] answers = { "Answer1", "Answer2", "Answer3" };
-		
-		final AnswerArrayAdapter adapter = new AnswerArrayAdapter(this, R.layout.answer_row, answers);
+		final AnswerArrayAdapter adapter = new AnswerArrayAdapter(this, Utils.toArrayList(answers));
 		final ListView listView = (ListView) findViewById(R.id.answersListView);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,12 +55,11 @@ public class AnswersActivity extends Activity {
 	        });
 	}
 	
-	private class AnswerArrayAdapter extends ArrayAdapter<String> {
-		String[] answers;
-		Context context;
+	private class AnswerArrayAdapter extends BaseAdapter {
+		private List<Answer> answers;
+		private Context context;
 
-		public AnswerArrayAdapter(Context context, int textViewResourceId, String[] answers) {
-			super(context, textViewResourceId, R.id.title, answers);
+		public AnswerArrayAdapter(Context context, List<Answer> answers) {
         	this.context = context;
         	this.answers = answers;
 		}
@@ -67,11 +72,29 @@ public class AnswersActivity extends Activity {
 				row = inflater.inflate(R.layout.answer_row, parent, false);
 			}
 			
+			//TODO: Use ViewHolder pattern
 			TextView title = (TextView) row.findViewById(R.id.title);
-			title.setText(answers[position]);
+			
+			Answer answer = this.answers.get(position);
+			
+			title.setText(answer.getTitle());
 			
 			return row;
 		}
+		
+		@Override
+		public int getCount() {
+			return this.answers.size();
+		}
 
+		@Override
+		public Object getItem(int i) {
+			return this.answers.get(i);
+		}
+
+		@Override
+		public long getItemId(int i) {
+			return this.answers.get(i).getQuestionId();
+		}
 	}
 }
