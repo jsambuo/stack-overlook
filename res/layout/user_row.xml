@@ -2,36 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="5dip">
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip" >
     
     <ImageView
         android:id="@+id/gravatar"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
         android:layout_marginRight="5dip"
+        android:layout_centerVertical="true"
         android:contentDescription="Gravatar"
         android:src="@drawable/ic_launcher" />
     
-	<TextView
-        android:id="@+id/name"
+	<LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/gravatar"
-        android:layout_alignTop="@id/gravatar"
-        android:text="Name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <TextView 
-        android:id="@+id/desc"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name" 
-        android:layout_toRightOf="@id/gravatar" 
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="Description"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/gravatar" >
+        
+        <TextView
+	        android:id="@+id/name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Name"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+	    <TextView 
+	        android:id="@+id/desc"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:ellipsize="marquee"
+	        android:singleLine="true"
+	        android:text="Description"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
 
 </RelativeLayout>
