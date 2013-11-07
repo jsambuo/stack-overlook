@@ -15,3 +15,4 @@ To-do
    * Use ViewHolders
    * Add Unit Tests
    * Exception handling
+   * Use [ActionBarSherlock](http://www.actionbarsherlock.com)
