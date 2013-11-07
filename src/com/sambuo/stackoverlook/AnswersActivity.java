@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -83,23 +84,23 @@ public class AnswersActivity extends Activity {
 		}
 		
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View row = convertView;
-			if (row == null) {
+		public View getView(int position, View row, ViewGroup parent) {
+			ViewHolder vh;
+			if (row == null || row.getTag() == null) {
 				row = inflater.inflate(R.layout.answer_row, parent, false);
+				vh = new ViewHolder(row);
+				row.setTag(vh);
 			}
-			
-			//TODO: Use ViewHolder pattern
-			TextView title = (TextView) row.findViewById(R.id.title);
-			TextView score = (TextView) row.findViewById(R.id.score);
-			TextView accepted = (TextView) row.findViewById(R.id.accepted);
+			else {
+				vh = (ViewHolder) row.getTag();
+			}
 			
 			Answer answer = this.answers.get(position);
 			
-			title.setText(Html.fromHtml(answer.getTitle()));
-			score.setText(String.format("%d", answer.getScore()));
+			vh.title.setText(Html.fromHtml(answer.getTitle()));
+			vh.score.setText(String.format("%d", answer.getScore()));
 			if (answer.isAccepted()) {
-				accepted.setVisibility(View.VISIBLE);
+				vh.accepted.setVisibility(View.VISIBLE);
 			}
 			
 			return row;
@@ -118,6 +119,18 @@ public class AnswersActivity extends Activity {
 		@Override
 		public long getItemId(int i) {
 			return this.answers.get(i).getQuestionId();
+		}
+		
+		private class ViewHolder {
+		    protected final TextView title;
+		    protected final TextView score;
+		    protected final TextView accepted;
+		    
+		    public ViewHolder( final View root ) {
+		    	this.title = (TextView) root.findViewById( R.id.title );
+		        this.score = (TextView) root.findViewById( R.id.score );
+		        this.accepted = (TextView) root.findViewById( R.id.accepted );
+		    }
 		}
 	}
 }

@@ -73,26 +73,26 @@ public class UsersActivity extends Activity {
 		}
 		
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View row = convertView;
-			if (row == null) {	
+		public View getView(int position, View row, ViewGroup parent) {
+			ViewHolder vh = null;
+			if (row == null || row.getTag() == null) {
 				row = inflater.inflate(R.layout.user_row, parent, false);
+				vh = new ViewHolder(row);
+				row.setTag(vh);
 			}
-			
-			//TODO: Use ViewHolder pattern
-			ImageView gravatar = (ImageView) row.findViewById(R.id.gravatar);
-			TextView name = (TextView) row.findViewById(R.id.name);
-			TextView desc = (TextView) row.findViewById(R.id.desc);
+			else {
+				vh = (ViewHolder) row.getTag();
+			}
 			
 			User user = this.users.get(position);
 			
 			//TODO: Use async loading
 			//TODO: Cache images
 			Drawable userImage = Utils.getDrawableFromURL(user.getProfileImage());
-			gravatar.setImageDrawable(userImage);
 			
-			name.setText(user.getDisplayName());
-			desc.setText(Html.fromHtml(user.getAboutMe()));
+			vh.gravatar.setImageDrawable(userImage);
+			vh.name.setText(user.getDisplayName());
+			vh.desc.setText(Html.fromHtml(user.getAboutMe()));
 			
 			return row;
 		}
@@ -110,6 +110,18 @@ public class UsersActivity extends Activity {
 		@Override
 		public long getItemId(int i) {
 			return this.users.get(i).getUserId();
+		}
+		
+		private class ViewHolder {
+		    protected final ImageView gravatar;
+		    protected final TextView name;
+		    protected final TextView desc;
+		    
+		    public ViewHolder( final View root ) {
+		    	this.gravatar = (ImageView) root.findViewById( R.id.gravatar );
+		        this.name = (TextView) root.findViewById( R.id.name );
+		        this.desc = (TextView) root.findViewById( R.id.desc );
+		    }
 		}
 
 	}
