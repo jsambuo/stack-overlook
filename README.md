@@ -14,3 +14,4 @@ To-do
    * Use AsyncTask
    * Use ViewHolders
    * Add Unit Tests
+   * Exception handling
