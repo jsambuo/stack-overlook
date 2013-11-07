@@ -9,6 +9,7 @@ import com.sambuo.stackoverlook.utilities.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -36,6 +37,14 @@ public class AnswersActivity extends Activity {
 		if(!intent.hasExtra(UsersActivity.EXTRA_USER_ID)) {
 			Log.e(AnswersActivity.class.toString(), "UserId was not given to AnswersActivity");
 		}
+		if(!intent.hasExtra(UsersActivity.EXTRA_USER_NAME)) {
+			Log.e(AnswersActivity.class.toString(), "User name was not given to AnswersActivity");
+		}
+		
+		String userName = intent.getStringExtra(UsersActivity.EXTRA_USER_NAME);
+		this.setTitle(userName);
+		
+		//this.getActionBar().setIcon(icon);
 		
 		long selectedUserId = intent.getLongExtra(UsersActivity.EXTRA_USER_ID, 0);
 		Iterable<Answer> answers = this.repository.getLatestAnswersFromUserId(selectedUserId);
@@ -74,13 +83,14 @@ public class AnswersActivity extends Activity {
 			//TODO: Use ViewHolder pattern
 			TextView title = (TextView) row.findViewById(R.id.title);
 			TextView score = (TextView) row.findViewById(R.id.score);
+			TextView accepted = (TextView) row.findViewById(R.id.accepted);
 			
 			Answer answer = this.answers.get(position);
 			
 			title.setText(Html.fromHtml(answer.getTitle()));
 			score.setText(String.format("%d", answer.getScore()));
 			if (answer.isAccepted()) {
-				score.setBackgroundResource(android.R.color.holo_green_dark);
+				accepted.setVisibility(View.VISIBLE);
 			}
 			
 			return row;

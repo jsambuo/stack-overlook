@@ -26,9 +26,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class UsersActivity extends Activity
-{
+public class UsersActivity extends Activity {
+	
 	public final static String EXTRA_USER_ID = "com.sambuo.stackoverlook.USER_ID";
+	public final static String EXTRA_USER_NAME = "com.sambuo.stackoverlook.USER_NAME";
+	public final static String EXTRA_USER_ICON = "com.sambuo.stackoverlook.USER_ICON";
+	
 	private final StackOverflowRepository repository = StackOverflowRepository.getInstance();
 	
     @Override
@@ -53,6 +56,8 @@ public class UsersActivity extends Activity
         	public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
         		Intent showAnswersIntent = new Intent(view.getContext(), AnswersActivity.class);
         		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, id);
+        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_NAME, ((TextView)view.findViewById(R.id.name)).getText());
+        		//showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ICON, ((ImageView)view.findViewById(R.id.gravatar)).getDrawable());
         		UsersActivity.this.startActivity(showAnswersIntent);
         	}
         });

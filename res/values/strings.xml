@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Stack Overlook</string>
+    <string name="scoreTitle">votes:</string>
+    <string name="accepted">Accepted</string>
 </resources>
