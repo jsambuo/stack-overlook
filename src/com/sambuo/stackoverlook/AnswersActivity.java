@@ -1,5 +1,6 @@
 package com.sambuo.stackoverlook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sambuo.stackoverlook.entities.Answer;
@@ -53,17 +54,20 @@ public class AnswersActivity extends Activity {
 		
 		long selectedUserId = intent.getLongExtra(UsersActivity.EXTRA_USER_ID, 0);
 		Iterable<Answer> answers = this.repository.getLatestAnswersFromUserId(selectedUserId);
+		final ArrayList<Answer> answerArrayList = Utils.toArrayList(answers);
 		
-		final AnswerArrayAdapter adapter = new AnswerArrayAdapter(this, Utils.toArrayList(answers));
+		final AnswerArrayAdapter adapter = new AnswerArrayAdapter(this, answerArrayList);
 		final ListView listView = (ListView) findViewById(R.id.answersListView);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+				Answer a = answerArrayList.get(position);
+				
 				Intent showAnswersIntent = new Intent(view.getContext(), QuestionActivity.class);
-				showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, id);
-				showAnswersIntent.putExtra(AnswersActivity.EXTRA_ANSWER_BODY, "This is the body for the answer");
-				showAnswersIntent.putExtra(AnswersActivity.EXTRA_ANSWER_SCORE, 4);
+				showAnswersIntent.putExtra(AnswersActivity.EXTRA_QUESTION_ID, a.getQuestionId());
+				showAnswersIntent.putExtra(AnswersActivity.EXTRA_ANSWER_BODY, a.getBody());
+				showAnswersIntent.putExtra(AnswersActivity.EXTRA_ANSWER_SCORE, a.getScore());
 				startActivity(showAnswersIntent);
 			}
 		});

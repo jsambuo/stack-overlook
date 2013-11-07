@@ -1,64 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ScrollView
+    <RelativeLayout
         android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-            
-			<TextView
-		        android:id="@+id/score"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentRight="true"
-		        android:layout_alignParentTop="true"
-		        android:layout_marginRight="14dp"
-		        android:text="0"
-		        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:text="Question Title"
                 android:background="@android:color/background_dark"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <View
+                android:id="@+id/titleSeparator"
+			    android:layout_width="fill_parent"
+			    android:layout_height="1dip"
+			    android:layout_marginTop="10dip"
+			    android:layout_marginBottom="10dip"
+			    android:layout_below="@id/title"
+			    android:background="@android:color/darker_gray"/>
 
             <TextView
                 android:id="@+id/questionBody"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/titleSeparator"
                 android:text="Question Body"
                 android:background="@android:color/background_dark"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
             
             <TextView
-		        android:id="@+id/answerScore"
+                android:id="@+id/questionScoreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scoreTitle"
+                android:layout_below="@id/questionBody"
+                android:background="@android:color/background_dark"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+            <TextView
+		        android:id="@+id/questionScore"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_alignParentRight="true"
-		        android:layout_alignParentTop="true"
+		        android:layout_below="@id/questionBody"
+		        android:layout_toRightOf="@id/questionScoreTitle"
 		        android:text="0"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		        android:background="@android:color/background_dark"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
             
             <TextView
                 android:id="@+id/answerBody"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/questionScoreTitle"
                 android:text="Answer Body"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+            
+            <TextView
+                android:id="@+id/answerScoreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scoreTitle"
+                android:layout_below="@id/answerBody" />
+            
+            <TextView
+		        android:id="@+id/answerScore"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/answerBody"
+		        android:layout_toRightOf="@id/answerScoreTitle"
+		        android:text="0"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+	</RelativeLayout>
+</ScrollView>

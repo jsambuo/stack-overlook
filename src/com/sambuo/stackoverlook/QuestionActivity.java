@@ -31,14 +31,14 @@ public class QuestionActivity extends Activity {
 		
 		TextView title = (TextView) findViewById(R.id.title);
 		TextView questionBody = (TextView) findViewById(R.id.questionBody);
-		TextView score = (TextView) findViewById(R.id.score);
+		TextView questionScore = (TextView) findViewById(R.id.questionScore);
 		TextView answerScore = (TextView) findViewById(R.id.answerScore);
 		TextView answerBody = (TextView) findViewById(R.id.answerBody);
 		
 		title.setText(Html.fromHtml(question.getTitle()));
 		questionBody.setText(Html.fromHtml(question.getBody()));
-		score.setText(String.format("%d", question.getScore()));
-		answerBody.setText(answerBodyString);
+		questionScore.setText(String.format("%d", question.getScore()));
+		answerBody.setText(Html.fromHtml(answerBodyString));
 		answerScore.setText(String.format("%d", answerScoreInt));
 	}
 }
