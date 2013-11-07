@@ -1,8 +1,6 @@
 package com.sambuo.stackoverlook;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sambuo.stackoverlook.entities.User;
@@ -12,8 +10,7 @@ import com.sambuo.stackoverlook.utilities.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
@@ -48,16 +45,19 @@ public class UsersActivity extends Activity {
 
         Iterable<User> users = this.repository.getAppSpecificUsers();
         final ListView listView = (ListView) findViewById(R.id.listView);
-        final UserArrayAdapter adapter = new UserArrayAdapter(this, Utils.toArrayList(users));
+        final ArrayList<User> userArrayList = Utils.toArrayList(users);
+        final UserArrayAdapter adapter = new UserArrayAdapter(this, userArrayList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
         	public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+        		User u = userArrayList.get(position);
+        		
         		Intent showAnswersIntent = new Intent(view.getContext(), AnswersActivity.class);
-        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, id);
-        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_NAME, ((TextView)view.findViewById(R.id.name)).getText());
-        		//showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ICON, ((ImageView)view.findViewById(R.id.gravatar)).getDrawable());
+        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ID, u.getUserId());
+        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_NAME, u.getDisplayName());
+        		showAnswersIntent.putExtra(UsersActivity.EXTRA_USER_ICON, u.getProfileImage());
         		UsersActivity.this.startActivity(showAnswersIntent);
         	}
         });
@@ -88,17 +88,8 @@ public class UsersActivity extends Activity {
 			
 			//TODO: Use async loading
 			//TODO: Cache images
-			try {
-				URL newurl = new URL(user.getProfileImage());
-				Bitmap img = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
-				gravatar.setImageBitmap(img);
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Drawable userImage = Utils.getDrawableFromURL(user.getProfileImage());
+			gravatar.setImageDrawable(userImage);
 			
 			name.setText(user.getDisplayName());
 			desc.setText(Html.fromHtml(user.getAboutMe()));

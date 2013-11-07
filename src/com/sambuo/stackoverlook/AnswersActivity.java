@@ -9,7 +9,7 @@ import com.sambuo.stackoverlook.utilities.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.opengl.Visibility;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -40,11 +40,16 @@ public class AnswersActivity extends Activity {
 		if(!intent.hasExtra(UsersActivity.EXTRA_USER_NAME)) {
 			Log.e(AnswersActivity.class.toString(), "User name was not given to AnswersActivity");
 		}
+		if(!intent.hasExtra(UsersActivity.EXTRA_USER_ICON)) {
+			Log.e(AnswersActivity.class.toString(), "User icon was not given to AnswersActivity");
+		}
 		
 		String userName = intent.getStringExtra(UsersActivity.EXTRA_USER_NAME);
 		this.setTitle(userName);
 		
-		//this.getActionBar().setIcon(icon);
+		String userIconPath = intent.getStringExtra(UsersActivity.EXTRA_USER_ICON);
+		Drawable userIcon = Utils.getDrawableFromURL(userIconPath);
+		this.getActionBar().setIcon(userIcon);
 		
 		long selectedUserId = intent.getLongExtra(UsersActivity.EXTRA_USER_ID, 0);
 		Iterable<Answer> answers = this.repository.getLatestAnswersFromUserId(selectedUserId);
